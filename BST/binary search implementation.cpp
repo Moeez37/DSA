@@ -24,13 +24,15 @@ struct Node* newNode(int data)
 
 	return (node);
 }
-void insert(struct Node* node,int key)
+struct Node* insert( struct Node* node,int key)
 {
 	if(!node){
-		node=newNode(key);
+		
+		return newNode(key);
 	}
 	else{
-		struct Node* temp=node;
+	
+		struct Node* temp = node;
 		while(true)
 		{
 			if(key>temp->data && temp->right==NULL)
@@ -43,16 +45,36 @@ void insert(struct Node* node,int key)
 				temp->left=newNode(key);
 				break;
 			}
-		    if(key>temp->data && temp->right!=NULL)
+		    if(key>temp->data)
 			{
 				temp=temp->right;
 			}
-			else if(key<temp->data && temp->left !=NULL)
+			else
 			{
 				temp=temp->left;
 			}
 		}
 	}
+	return node;
+}
+//sum of all the nodes of binary tree
+int Sum(struct Node* node,int k);
+int sum(struct Node* node)
+{
+	int k=0;
+	k=Sum(node,k);
+	return k;
+}
+int Sum(struct Node* node,int k)
+{
+	if(!node)
+	{
+		return k;
+	}
+	k=Sum(node->left,k);
+	k+=node->data;
+	k=Sum(node->right,k);
+	return k;
 }
 /*Inorder traversal.*/
 void inOrder(struct Node* node)
@@ -108,7 +130,8 @@ bool isBST(Node* node) {
 
 int main()
 {
-	struct Node* root = NULL;
+	struct Node* root = NULL;//as it make address in root so it didnt give prob in insertion
+	root=insert(root,4);
 	insert(root,10);
 	insert(root,14);
 	insert(root,12);
@@ -122,14 +145,11 @@ int main()
 	cout << "Inorder traversal of the constructed"
 		<< " tree is" << endl;
 	inOrder(root);
-
+	cout<<root<<"sum of tree is"<<sum(root)<<endl;
 	/* Convert tree to its mirror */
 //	mirror(root);
 
 	/* Print inorder traversal of the mirror tree */
-	cout << "\nInorder traversal of the mirror tree"
-		<< " is \n";
-	inOrder(root);
 isBST(root)? cout<<"\n its binary tree \n": cout<<"\n its not binary tree\n";
 mineisbst(root)? cout<<"\n its binary tree \n": cout<<"\n its not binary tree\n";
 
