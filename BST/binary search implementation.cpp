@@ -57,6 +57,11 @@ struct Node* insert( struct Node* node,int key)
 	}
 	return node;
 }
+void delete(struct Node * node)
+{
+	Node* temp=node; 
+	
+}
 //sum of all the nodes of binary tree
 int Sum(struct Node* node,int k);
 int sum(struct Node* node)
